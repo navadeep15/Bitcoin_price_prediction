@@ -104,8 +104,11 @@ To use the interface for regression:
    ```bash
    cd ..
    ```
-
 ---
+
+### Results:
+
+To see the results see the `bitcoin_price_prediction.pdf`
 
 This project combines machine learning techniques with practical user interfaces, making it accessible for both technical and non-technical users to explore Bitcoin price predictions.
 

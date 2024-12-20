@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Price Prediction</title>
+    <style>
+        /* Resetting some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 2.5rem;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        form {
+            width: 80%;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: space-between;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .form-group {
+            flex: 1 1 calc(50% - 20px);
+            display: flex;
+            flex-direction: column;
+            padding: 0 10px;
+        }
+
+        label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+        }
+
+        .button-container {
+            flex: 1 1 100%;
+            text-align: center;
+            padding: 15px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .result, .reason {
+            width: 80%;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            border-radius: 8px;
+        }
+
+        .result {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .reason {
+            background-color: #fce4ec;
+            color: #c2185b;
+            border: 1px solid #f8bbd0;
+        }
+
+        .form-group input[type="text"]:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            form {
+                width: 95%;
+                margin-top: 20px;
+            }
+
+            .form-group {
+                flex: 1 1 100%;
+            }
+
+            button {
+                width: 100%;
+                padding: 15px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Bitcoin Price Prediction</h1>
+    <form method="POST">
+        <!-- Column 1 -->
+        <div class="form-group">
+            <label for="open_close">Open-Close Difference:</label>
+            <input type="text" id="open_close" name="open_close" required>
+        </div>
+        <div class="form-group">
+            <label for="low_high">Low-High Difference:</label>
+            <input type="text" id="low_high" name="low_high" required>
+        </div>
+        <div class="form-group">
+            <label for="is_quarter_end">Is Quarter End? (0 or 1):</label>
+            <input type="text" id="is_quarter_end" name="is_quarter_end" required>
+        </div>
+        <div class="form-group">
+            <label for="ma7">7-day Moving Average:</label>
+            <input type="text" id="ma7" name="ma7" required>
+        </div>
+
+        <!-- Column 2 -->
+        <div class="form-group">
+            <label for="ma30">30-day Moving Average:</label>
+            <input type="text" id="ma30" name="ma30" required>
+        </div>
+        <div class="form-group">
+            <label for="daily_return">Daily Return:</label>
+            <input type="text" id="daily_return" name="daily_return" required>
+        </div>
+        <div class="form-group">
+            <label for="volatility">Volatility (7-day std dev):</label>
+            <input type="text" id="volatility" name="volatility" required>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="button-container">
+            <button type="submit">Predict Next Close Price</button>
+        </div>
+    </form>
+
+    {% if prediction is not none %}
+        <div class="result">
+            Predicted Next Close Price: ${{ prediction | round(2) }}
+        </div>
+        <div class="reason">
+            Reason: {{ reason }}
+        </div>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Price Prediction</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="text-center">Bitcoin Price Prediction</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="/predict">
+                            <div class="mb-3">
+                                <label for="open_close" class="form-label">Open-Close Difference</label>
+                                <input type="number" step="0.01" name="open_close" id="open_close" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="low_high" class="form-label">Low-High Difference</label>
+                                <input type="number" step="0.01" name="low_high" id="low_high" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="is_quarter_end" class="form-label">Is Quarter End</label>
+                                <select name="is_quarter_end" id="is_quarter_end" class="form-select" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Predict</button>
+                            </div>
+                        </form>
+                        {% if error %}
+                            <div class="alert alert-danger mt-3">Error: {{ error }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
